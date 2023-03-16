@@ -11,7 +11,7 @@ tasks:
                       name: maven
           - name: "clone the addressbook project"
              git:
-                      repo: 'https://github.com/azilifian/addressbook'
+                      repo: 'https://github.com/gunanidinesh/ansible-project.git'
                       dest: "{{gitdir }}"
                       version: "master"
           - name: "compile the addressbook project"
