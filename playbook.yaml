@@ -1,10 +1,10 @@
 ---
-name: generate war file"
-hosts: local
-become: true
-vars:
-  gitdir: /tmp/addressbook-project-1
-tasks:
+- name: generate war file"
+  hosts: local
+  become: true
+  vars:
+    gitdir: /tmp/addressbook-project-1
+  tasks:
   - name: install maven
     apt:
       name: maven
@@ -17,8 +17,6 @@ tasks:
     command:
       chdir: "{{gitdir }}"
       cmd: mvn package
-
----
 - name: setup webserver and deploy WAR
   hosts: webserver
   become: true
