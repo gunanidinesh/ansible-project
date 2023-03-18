@@ -7,33 +7,34 @@ vars:
 tasks:
 
           - name: "install maven'
-             apt:
+            apt:
                       name: maven
           - name: "clone the addressbook project"
-             git:
+            git:
                       repo: 'https://github.com/gunanidinesh/ansible-project.git'
                       dest: "{{gitdir }}"
                       version: "master"
           - name: "compile the addressbook project"
-             command:
+            command:
                                chdir: "{{gitdir }}"
                                cmd: "mvn package”
+---                               
 - name: "setup webserver and deploy WAR"
-hosts: webserver
-become: true
-vars:
+  hosts: webserver
+  become: true
+  vars:
              gitdir: "/tmp/addressbook-project-1"
-tasks:
+  tasks:
             - name: "install tomcat9"
-               apt:
+              apt:
                        name: tomcat9
-               notify: "enable tomcat service"
-             - name: "deploy WAR fle"
-                copy:
+              notify: "enable tomcat service"
+            - name: "deploy WAR fle"
+              copy:
                             src: "{{ gitdir }}/target/addressbook-2.0.war" 
                             dest: "/var/lib/tomcat9/webapps/addressbook.war"
-handlers:
+  handlers:
               - name: "enable tomcat service"
-                 service:
+                service:
                                name: tomcat9
                                state: started
